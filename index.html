@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OddHuman</title>
+<meta name="description" content="OddHuman is a calm app for building the systems and small daily habits that move your goals.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one calm reading column, the app's own sage-and-ink palette, the eye as the only ornament. */
+:root {
+  --bg: #F3F6F3; --fg: #1A211E; --muted: #55625C; --line: #D8E0DB; --panel: #FFFFFF;
+  --accent: #2F6F5A; --ink: #1F3D49; --iris: #87C6AA;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121614; --fg: #E7EDE9; --muted: #9CABA4; --line: #2A332F; --panel: #181E1B;
+  --accent: #8CCBA5; --ink: #F2F5F1; --iris: #9FD3B9; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #121614; --fg: #E7EDE9; --muted: #9CABA4; --line: #2A332F; --panel: #181E1B;
+  --accent: #8CCBA5; --ink: #F2F5F1; --iris: #9FD3B9; color-scheme: dark; }
+body { background: var(--bg); color: var(--fg); font: 17px/1.65 var(--body); }
+.wrap { max-width: 720px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 96px; }
+header { display: flex; align-items: center; gap: 12px; }
+header svg { width: 44px; height: auto; flex: none; }
+header .name { font-weight: 700; font-size: 20px; letter-spacing: -.01em; }
+h1 { font-size: clamp(32px, 6vw, 44px); line-height: 1.1; margin: 40px 0 8px; letter-spacing: -.02em; text-wrap: balance; }
+.updated { color: var(--muted); font-size: 15px; }
+h2 { font-size: 22px; line-height: 1.25; margin: 44px 0 10px; letter-spacing: -.01em; }
+h3 { font-size: 17px; margin: 24px 0 6px; }
+p, li { max-width: 66ch; }
+p { margin: 10px 0; }
+ul { padding-left: 22px; margin: 10px 0; }
+li { margin: 6px 0; }
+a { color: var(--accent); text-underline-offset: 3px; }
+.short { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; margin-top: 28px; }
+.short h2 { margin-top: 0; font-size: 18px; }
+.short ul { margin-bottom: 0; }
+.tablewrap { overflow-x: auto; margin: 14px 0; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; min-width: 540px; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+th { font-size: 13px; font-weight: 600; color: var(--muted); }
+tr:last-child td { border-bottom: 0; }
+.contact { font-weight: 600; user-select: all; }
+footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+</style>
+<style>
+.hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
+.hero svg { width: 96px; height: auto; }
+.hero h1 { margin: 0; }
+.hero p { font-size: 20px; color: var(--muted); margin: 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <svg viewBox="0 0 62 48" aria-hidden="true">
+      <path d="M0 24 Q31 -24 62 24 Q31 72 0 24 Z M31 7.6 A16.4 16.4 0 1 0 31 40.4 A16.4 16.4 0 1 0 31 7.6 Z" fill="var(--ink)" fill-rule="evenodd"/>
+      <circle cx="31" cy="24" r="14.8" fill="var(--iris)"/>
+      <circle cx="31" cy="24" r="6.2" fill="#15181A"/>
+      <circle cx="38.8" cy="16.8" r="4.2" fill="#FFFFFF"/>
+    </svg>
+    <h1>OddHuman</h1>
+    <p>A calm app for building the systems and small daily habits that move your goals. Coming to the App Store.</p>
+  </section>
+  <footer><a href="/privacy/">Privacy policy</a> · privacy@oddhuman.io</footer>
+</div>
+</body>
+</html>
