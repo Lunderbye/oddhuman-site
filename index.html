@@ -47,7 +47,7 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
 </style>
 <style>
 .hero { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
-.hero svg { width: 96px; height: auto; }
+.hero svg { width: 102px; height: auto; } /* the eye's 62 units drawn at 96 px, plus room for the closed lid's line */
 .hero h1 { margin: 0; }
 .hero p { font-size: 20px; color: var(--muted); margin: 0; }
 </style>
@@ -55,16 +55,89 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
 <body>
 <div class="wrap">
   <section class="hero">
-    <svg viewBox="0 0 62 48" aria-hidden="true">
-      <path d="M0 24 Q31 -24 62 24 Q31 72 0 24 Z M31 7.6 A16.4 16.4 0 1 0 31 40.4 A16.4 16.4 0 1 0 31 7.6 Z" fill="var(--ink)" fill-rule="evenodd"/>
-      <circle cx="31" cy="24" r="14.8" fill="var(--iris)"/>
-      <circle cx="31" cy="24" r="6.2" fill="#15181A"/>
-      <circle cx="38.8" cy="16.8" r="4.2" fill="#FFFFFF"/>
+    <svg class="eye" viewBox="-2 -2 66 52" aria-hidden="true">
+      <defs><clipPath id="lid"><path d="M0 24 Q31 -24 62 24 Q31 72 0 24 Z"/></clipPath></defs>
+      <g clip-path="url(#lid)">
+        <path d="M0 24 Q31 -24 62 24 Q31 72 0 24 Z M31 7.6 A16.4 16.4 0 1 0 31 40.4 A16.4 16.4 0 1 0 31 7.6 Z" fill="var(--ink)" fill-rule="evenodd"/>
+        <g class="look">
+          <circle cx="31" cy="24" r="14.8" fill="var(--iris)"/>
+          <circle cx="31" cy="24" r="6.2" fill="#15181A"/>
+          <circle cx="38.8" cy="16.8" r="4.2" fill="#FFFFFF"/>
+        </g>
+      </g>
+      <path class="lash" d="M0.5 24 Q31 -24 61.5 24" fill="none" stroke="var(--ink)" stroke-width="3.2" stroke-linecap="round" opacity="0"/>
     </svg>
     <h1>OddHuman</h1>
     <p>A calm app for building the systems and small daily habits that move your goals. Coming to the App Store.</p>
   </section>
   <footer><a href="/privacy/">Privacy policy</a> · privacy@oddhuman.io</footer>
 </div>
+<script>
+// The eye blinks (2026-10-05, option C of the round at
+// https://claude.ai/artifact/F8wwLozQj8AswohmUuzFNX): about five times a
+// minute at irregular gaps, now and then twice; once when you stop scrolling;
+// and with a mouse the pupil follows the pointer. A blink is the two lid
+// curves closing — the upper lid does most of it, fast to close, slower to
+// open. Nothing moves with Reduce motion on, or while the tab is hidden.
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const svg = document.querySelector('.hero .eye');
+  if (!svg) return;
+  const clip = svg.querySelector('#lid path'), lash = svg.querySelector('.lash'), look = svg.querySelector('.look');
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const set = (t) => {
+    const top = lerp(-24, 36.4, t), bot = lerp(72, 39.6, Math.pow(t, 1.4));
+    clip.setAttribute('d', `M0 24 Q31 ${top} 62 24 Q31 ${bot} 0 24 Z`);
+    lash.setAttribute('d', `M0.5 24 Q31 ${top} 61.5 24`);
+    lash.setAttribute('opacity', Math.max(0, (t - 0.55) / 0.45).toFixed(3));
+  };
+  let busy = false;
+  const one = () => new Promise((done) => {
+    const t0 = performance.now();
+    const step = (now) => {
+      const e = now - t0;
+      if (e < 70) { const x = e / 70; set(x * x); }
+      else if (e < 110) set(1);
+      else if (e < 250) { const x = (e - 110) / 140; set(1 - x * (2 - x)); }
+      else { set(0); return done(); }
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+  const blink = async () => {
+    if (busy || document.hidden) return;
+    busy = true;
+    await one();
+    if (Math.random() < 0.08) { await new Promise((r) => setTimeout(r, 120)); await one(); }
+    busy = false;
+  };
+  // Irregular gaps, like real ones: log-normal around 11 s, kept to 5–22 s.
+  const gap = () => {
+    const n = Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(2 * Math.PI * Math.random());
+    return Math.min(22, Math.max(5, Math.exp(Math.log(11) + 0.45 * n))) * 1000;
+  };
+  const loop = () => setTimeout(async () => { await blink(); loop(); }, gap());
+  loop();
+  let still;
+  addEventListener('scroll', () => { clearTimeout(still); still = setTimeout(blink, 260); }, { passive: true });
+  // Only with a mouse: on a phone following would need the tilt sensor, which
+  // iOS asks permission for.
+  if (matchMedia('(pointer: fine)').matches) {
+    let tx = 0, ty = 0, x = 0, y = 0, moving = false;
+    const ease = () => {
+      x += (tx - x) * 0.12; y += (ty - y) * 0.12;
+      look.setAttribute('transform', `translate(${x.toFixed(2)} ${y.toFixed(2)})`);
+      if (Math.abs(tx - x) + Math.abs(ty - y) > 0.01) requestAnimationFrame(ease); else moving = false;
+    };
+    addEventListener('pointermove', (ev) => {
+      const r = svg.getBoundingClientRect();
+      const dx = ev.clientX - (r.left + r.width / 2), dy = ev.clientY - (r.top + r.height / 2);
+      const d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 400);
+      tx = (dx / d) * 4.2 * k; ty = (dy / d) * 3 * k;
+      if (!moving) { moving = true; requestAnimationFrame(ease); }
+    });
+  }
+})();
+</script>
 </body>
 </html>
