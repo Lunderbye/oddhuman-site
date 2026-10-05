@@ -66,7 +66,7 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
     <h2>The short version</h2>
     <ul>
       <li>From the first launch, what you enter is backed up to a private account with Supabase in the EU. You don't have to give a name or an email for that.</li>
-      <li>Add an email if you want to sign in on another phone. That's the only personal detail we ask for.</li>
+      <li>Add an email, or sign in with Apple or Google, if you want to use your account on another phone. That's the only personal detail we ask for.</li>
       <li>Your calendar, your reminders and the photos you attach to notes never leave your phone.</li>
       <li>No ads, no tracking, no analytics, and we never sell your data.</li>
       <li>You can get a copy of your data or have it deleted at any time.</li>
@@ -78,10 +78,12 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
 
   <h2>Your account</h2>
   <p>The first time OddHuman opens, it creates a private account for you without asking for anything. It is identified only by a random ID. What you enter is backed up to it, so nothing is lost if you lose your phone. If the phone is offline, the app works as normal and the account is created the next time it is online.</p>
-  <p>If you add an email address, you can sign in with it on another phone and get everything back. For your account we store:</p>
+  <p>If you add an email address, or sign in with Apple or Google, you can sign in on another phone and get everything back. For your account we store:</p>
   <ul>
     <li><b>A random account ID</b>, created on the first launch.</li>
     <li><b>Your email address and password</b>, only if you add them. The password is stored only as a secure hash; nobody, including us, can read it.</li>
+    <li><b>Apple or Google sign-in</b>, only if you use it: the ID Apple or Google gives us for you and the email address they share. With Apple's <i>Hide My Email</i> this is a private relay address that forwards to you. For Sign in with Apple we also keep a token Apple issues, used only to tell Apple to remove OddHuman from your Apple ID when you delete your account.</li>
+    <li><b>Your name</b>, only if you add it. It is shown in the greeting on the Habits screen. If you sign in with Apple or Google and haven't added a name, the app fills in the first name they share, and you can change it.</li>
     <li><b>What you put into the app:</b> your identity statement, goals, systems, habits and tasks, which days you did them, the numbers you record, your daily notes, weekly reviews and other writing, your parts of the day, review days and planned breaks, your app settings (such as theme, appearance and how Today is shown), and the date each of these was last changed.</li>
     <li><b>Security records</b> kept by our hosting provider when the app signs in, such as your IP address and the time. They are used to keep accounts safe and are deleted automatically after a short time.</li>
   </ul>
@@ -117,7 +119,8 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
     <tr><td>Supabase</td><td>Accounts, sign-in and the database for backup and sync</td><td>EU (Paris, France)</td></tr>
     <tr><td>Resend</td><td>Sending the confirmation and password reset emails</td><td>EU (Ireland)</td></tr>
     <tr><td>Expo (650 Industries)</td><td>Delivering app updates</td><td>United States</td></tr>
-    <tr><td>Apple</td><td>Distributing the app (App Store and TestFlight)</td><td>Under Apple's own privacy policy</td></tr>
+    <tr><td>Apple</td><td>Distributing the app (App Store and TestFlight), and Sign in with Apple if you choose it</td><td>Under Apple's own privacy policy</td></tr>
+    <tr><td>Google</td><td>Sign in with Google, if you choose it</td><td>Under Google's own privacy policy</td></tr>
   </table></div>
   <p>Where a provider or its subcontractors process data outside the EU and EEA, the transfer is protected by the EU Standard Contractual Clauses or the EU–US Data Privacy Framework.</p>
 
