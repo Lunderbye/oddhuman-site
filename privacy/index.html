@@ -68,6 +68,7 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
       <li>From the first launch, what you enter is backed up to a private account with Supabase in the EU. You don't have to give a name or an email for that.</li>
       <li>Add an email, or sign in with Apple or Google, if you want to use your account on another phone. That's the only personal detail we ask for.</li>
       <li>Your calendar, your reminders and the photos you attach to notes never leave your phone.</li>
+      <li>If you subscribe to OddHuman Plus, Apple handles the payment. We never see your card details.</li>
       <li>No ads, no tracking, no analytics, and we never sell your data.</li>
       <li>You can export everything as a file from inside the app, or delete your account, at any time.</li>
     </ul>
@@ -91,6 +92,17 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
 
   <h3>Emails we send</h3>
   <p>We email you only when you ask for it: a code to confirm the address you add and a code to reset your password. We send no newsletters or marketing.</p>
+
+  <h2 id="plus">OddHuman Plus</h2>
+  <p>OddHuman Plus is an optional subscription. You buy it through Apple's App Store, so Apple takes the payment and holds your payment details; we never see them. To know whether your account has Plus, we use RevenueCat, a subscription service. RevenueCat receives:</p>
+  <ul>
+    <li><b>Your account's random ID</b>, so a purchase belongs to your account and follows it to another phone.</li>
+    <li><b>Purchase records from Apple:</b> which subscription, when it started and renews, whether it is a trial, and its price and currency. Apple shares these with RevenueCat, not your name, email or payment details.</li>
+    <li><b>Technical details</b> needed to check a purchase, such as the app version, the country of your App Store and your IP address.</li>
+  </ul>
+  <p>We keep one record per account in our database saying whether it has Plus and until when, so the app can work offline and so features with a running cost can be checked on our server.</p>
+  <p><b>Why:</b> to provide the subscription you bought (GDPR Article 6(1)(b), performance of a contract), and to keep the records the law requires for sales.</p>
+  <p>Deleting your account deletes our record and asks RevenueCat to delete theirs. It does not cancel the subscription with Apple: cancel it in the Settings app, under your name → Subscriptions.</p>
 
   <h2>What never leaves your phone</h2>
   <ul>
@@ -118,8 +130,9 @@ footer { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--line);
     <tr><th>Provider</th><th>What for</th><th>Where</th></tr>
     <tr><td>Supabase</td><td>Accounts, sign-in and the database for backup and sync</td><td>EU (Paris, France)</td></tr>
     <tr><td>Resend</td><td>Sending the confirmation and password reset emails</td><td>EU (Ireland)</td></tr>
+    <tr><td>RevenueCat</td><td>Checking OddHuman Plus purchases, if you subscribe</td><td>United States</td></tr>
     <tr><td>Expo (650 Industries)</td><td>Delivering app updates</td><td>United States</td></tr>
-    <tr><td>Apple</td><td>Distributing the app (App Store and TestFlight), and Sign in with Apple if you choose it</td><td>Under Apple's own privacy policy</td></tr>
+    <tr><td>Apple</td><td>Distributing the app (App Store and TestFlight), selling OddHuman Plus, and Sign in with Apple if you choose it</td><td>Under Apple's own privacy policy</td></tr>
     <tr><td>Google</td><td>Sign in with Google, if you choose it</td><td>Under Google's own privacy policy</td></tr>
   </table></div>
   <p>Where a provider or its subcontractors process data outside the EU and EEA, the transfer is protected by the EU Standard Contractual Clauses or the EU–US Data Privacy Framework.</p>
